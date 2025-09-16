@@ -1,0 +1,203 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<title>Data Vis Assignment 1</title>
+	<link rel="stylesheet" href="https://dig.cmu.edu/datavis-fall-2024/assignments/report.css" />
+</head>
+
+<body>
+	<header>
+		<h1>
+			<small>Assignment 1</small>
+			Exploratory Data Analysis
+		</h1>
+
+		<p>
+			<strong>Andrew Wang</strong> — <em>ajw2@andrew.cmu.edu</em>
+		</p>
+	</header>
+	<main>
+		<section>
+			<h2>Subtheme: Allegheny County Fatal Accidental Overdoses Analysis</h2>
+			<h3>Data Overview</h3>
+
+				The first column that the dataset contains is <b>_id </b> which appears to be large integers
+				sorted according to the number of combined overdose substances associated with each case
+				then alphabetically, which lacks reasons to research deeper into. Each record also contains a
+				precise <b>death_date_and_time</b> in the format YYYY-MM-DDTHH:MM:SS, accurate only
+				to the minute, even though seconds were included in 00s format. The <b>manner_of_death</b>
+				column is consistently classified as an accident, thus no need to research further. Column
+				<b>age</b> represents patients’ age of death as integer values, while column <b>sex</b> is
+				categorized into male and female. The <b>race</b> column includes singular letter (with
+				occasional blanks) and based on assumption, they are abbreviations: A (Asian), B (Black), H
+				(Hispanic), I (Indigenous), M (Mixed), O (Others), U (Unknown), and W (White). The
+				<b>base_dispo</b> field is less clear but seems consistently marked as “M”. A series of
+				<b>combined_od</b> columns (combined_od1 to combined_od10) list the substances
+				present in each case, with up to ten possible entries, such as heroin, fentanyl, or other drugs.
+				The <b>incident_zip</b> field records the location of the overdose, and while many entries
+				are Allegheny County ZIP codes (15001 to 152XX), others extend beyond, suggesting cases
+				may involve residents or incidents outside the county. And <b>decedent_zip</b> column
+				remains blank.  Finally, <b>case_year</b> provides the year of death, extracted directly from
+				the death date field.
+
+			<h3>Overall Analysis Questions</h3>
+			<ol>
+				<li>
+					What age groups are most affected?<br>
+  					<b>Keyword:</b><br>
+  					AGE<br> 
+  					<b>Motivation:</b><br>
+					Based on my intuition and conversations with friends, I initially believed that younger generations in recent years are more likely to consume substances and therefore experience more overdose cases. I thought this might be because they sometimes care less about long-term health and tend to be less responsible compared to older adults. However, initial research and recent news reports suggest otherwise, showing declines among younger groups. This contrast between personal expectations and reported trends motivated me to explore how age groups are actually affected in the data.<br>
+					<b>Source:</b><br>
+					<a href="https://www.npr.org/2025/06/10/nx-s1-5414476/fentanyl-gen-z-drug-overdose-deaths">Drug deaths plummet among young Americans as fentanyl carnage eases</a>
+				</li>
+				<br>
+				<li>
+					Are we experiencing a decreasing amount of incidents over the years?<br>
+					<b>Keyword:</b><br>
+					CASE_YEAR<br> 
+					<b>Motivation:</b><br>
+					Policy shifts over the previous two U.S. presidencies have been significant, ranging from criminal justice approaches to public health initiatives. I wondered whether these policy changes would be reflected in the overdose data over time. My curiosity is to see if the trends in Allegheny County match the national reports of decline in overdose deaths, or if local patterns diverge from the broader narrative.<br>
+					<b>Source:</b><br>
+					<a href="https://www.cdc.gov/media/releases/2025/2025-cdc-reports-decline-in-us-drug-overdose-deaths.html">CDC Reports Nearly 24% Decline in U.S. Drug Overdose Deaths</a>
+				</li>
+				<br>
+				<li>
+					What drugs appeared more often in fatal overdoses?<br>
+					<b>Keyword:</b><br>
+					COMBINED_OD<br> 
+					<b>Motivation:</b><br>
+					Fentanyl is often described as being up to 100 times more potent than morphine, and news outlets and agencies have repeatedly emphasized its role in the overdose crisis. I want to analyze how often fentanyl appears in overdose cases compared to other substances, and whether its presence has indeed translated into more fatal outcomes. This will help me understand how much of the overdose crisis is being driven by fentanyl relative to other drugs.<br>
+					<b>Source:</b><br>
+					<a href="https://www.cbp.gov/frontline/cbp-america-s-front-line-against-fentanyl">CBP: America’s Front Line Against Fentanyl</a>
+				</li>
+				<br>
+				<li>
+					Are there patterns by region (urban vs. rural ZIPs) in terms of fatal overdoses?<br>
+					<b>Keyword:</b><br>
+					INCIDENT_ZIP<br> 
+					<b>Motivation:</b><br>
+					My assumption is that urban areas would record more overdose cases, as substances may be more readily available there through both legal and illegal channels. Urban regions also typically have greater access to hospitals, which could mean overdoses are more likely to be documented. Exploring this question allows me to see if overdose incidents are concentrated in the city of Pittsburgh or if rural areas of Allegheny County are equally affected.<br>
+					<b>Source:</b><br>
+					<a href="https://timesofindia.indiatimes.com/city/chandigarh/pattern-of-substance-abuse-in-rural-urban-areas-differs/articleshow/103524559.cms">Pattern of Substance Abuse in Rural, Urban Areas Differs</a>
+				</li>
+			</ol>
+		</section>
+
+		<section>
+			<h2>Discoveries & Insights</h2>
+
+			<figure>
+				<h3>Distribution of Fatal Overdoses by Age</h3>
+				<img src="Image_1.png" alt="" style="max-width:100%; height:auto;"/>
+				<figcaption>
+				This histogram shows the distribution of fatal overdoses by age in Allegheny County (2007 - 2025). 
+				I noticed that the majority of cases are concentrated between ages 25 and 60, peaking around the late 30s to mid-50s. 
+				Very few cases occur among teenagers or individuals over 80, suggesting middle-aged adults are the most affected group. 
+				Some outliers (e.g., few cases near age 0 or close to 90) may indicate rare events (medical accidents?) or possible data entry mistakes.
+				</figcaption>
+			</figure>
+
+			Surprisingly, the distribution is not a classic bell curve but instead has two distinct peaks, suggesting different subgroups may be driving the crisis.
+			This unusual pattern motivates a follow-up exploration of how the age distribution shifts across different years.
+
+			<figure>
+				<h3>Distribution of Fatal Overdoses by Age and Year</h3>
+				<img src="Image_2.png" alt="" style="max-width:100%; height:auto;"/>
+				<figcaption>
+					This heatmap shows the distribution of overdose incidents by age across different years (2007 - 2025) in Allegheny County. 
+					Two main trends stand out (marked in 2 red lines): one around the early 30s and another in the early 50s in 2017, indicating overdose inccidents happen more often on these two groups of people.
+				</figcaption>
+			</figure>
+
+			However, the two trends indicated by the two red lines isn't solid enough to prove these might be the same group of people.
+			Yet, a striking and surprising observation is the unusually high density of cases around 2017, far exceeding nearby years. 
+			This raises questions about whether changes in the drug supply, reporting practices, policy changes, or other social factors contributed to this spike. 
+
+			<figure>
+				<h3>Distribution of Fatal Overdoses Over Time</h3>
+				<img src="Image_3.png" alt="" style="max-width:100%; height:auto;"/>
+				<figcaption>
+				This line chart tracks the total number of fatal overdoses in Allegheny County from 2007–2025.  
+    			The trend rises gradually through the early 2010s, before surging to a sharp peak in 2017.  
+    			After this high point, incidents drop substantially in 2018, then climb again through 2019–2022, followed by another decline in the most recent years (maybe due to incomplete data of 2025). 
+				The vertical red lines highlight U.S. presidential transitions, helping to contextualize local overdose counts alongside national political shifts.
+				</figcaption>
+			</figure>
+
+			What stands out is the abrupt drop between 2017 and 2018, which might align with shifts in federal priorities during the early phase of Trump administration, whom yet didn't keep up with their earlier actions.
+			I am a bit curious about whether the administration towards drugs affected teens align with the overall trend, thus I would like to see how the number of younger people involved in these cases changed over time.
+
+			<figure>
+				<h3>Distribution of Fatal Overdoses among teens (Age 12 - 24) Over Time</h3>
+				<img src="Image_4.png" alt="" style="max-width:100%; height:auto;"/>
+				<figcaption>
+				This line chart shows the number of fatal overdoses among teenagers (ages 12–24) across years in Allegheny County. 
+    			What stands out is the sharp spike in 2017, followed by an equally steep decline in 2018, then climb again, then another decline in 2024, following the same trend as the overall population.
+				</figcaption>
+			</figure>
+
+			As expected, the spike in 2017 mirrors the overall county trend. 
+			Given fentanyl’s rise during this period and its reputation for extreme lethality, I suspect fentanyl may have been a driving factor behind this surge. 
+			This motivates a follow-up analysis that focuses on which substances (e.g., fentanyl vs. other opioids) appear most often in overdose cases over time, allowing us to test whether fentanyl’s emergence aligns with this spike.
+
+			<figure>
+				<h3>Share of Drug Mentions in Fatal Overdoses</h3>
+				<img src="Image_5.png" alt="" style="max-width:100%; height:auto;"/>
+				<figcaption>
+				This stacked area chart shows how the share of mentions for key drugs in fatal overdoses has shifted over time. (if drug a and b both present in one case, both will be counted to the total) 
+    			According to the diagram, Fentanyl is rising in percentage in overdose, growing from a negligible share in the late 2000s to a dominant presence by the mid-2010s, starting from 2014, where it rivals or surpasses heroin. 
+    			Also unlike Heroin, Cocaine maintains a steady presence.
+				</figcaption>
+			</figure>
+
+			Surprisingly, the timing of fentanyl’s surge overlaps with the overall spike in overdose deaths around 2014–2017, reinforcing its role as the crisis’s main driver.
+			Yet it didn’t decline in percentage as the overall overdose death count dropped in the following years, unlike what we saw in the previous diagram.
+			Thus, I am more curious about whether fentanyl’s impact is consistent across different age groups  
+			
+			<figure>
+				<h3>Share of Cases Inolve Fentanyl in Fatal Overdoses</h3>
+				<img src="Image_6.png" alt="" style="max-width:100%; height:auto;"/>
+				<figcaption>
+				This line graph compares the percentage of fatal overdose cases involving fentanyl (unlike the previous diagram, the total number is represented in cases instead of total types of durgs) across two age groups: younger individuals (ages 12–30, blue) and older individuals (ages 30+, orange). 
+				Both groups saw a sharp rise in fentanyl involvement beginning around 2014, peaking in 2017, when nearly every case in both groups included fentanyl. 
+				After this dramatic surge, fentanyl consistently accounted for a very  high proportion of overdoses, maintaining levels close to 90% in recent years. 
+				Younger cohorts experienced a slightly faster and steeper rise, and maintain at a slighlty higher percentage in recent years compared to the other group.
+				</figcaption>
+			</figure>
+
+			Contrary to my belief that this diagram provides no significant evidence that yonger people have stronger preference on Fentanyl, compared to older people.
+
+			<figure>
+				<h3>Distribution of Fatal Overdoses by ZIP Population</h3>
+				<img src="Image_7.png" alt="" style="max-width:100%; height:auto;"/>
+				<figcaption>
+				This choropleth map shows the rate of fatal overdoses per ZIP code in Allegheny County, normalized by their population.
+				The darker the color, the overdose rates are higher in those areas.
+				Source of Population: 
+				<a href="https://simplemaps.com/data/us-zips">US Zip Codes Database</a> <br>
+				Source of geojson of Allegheny County: 
+				<a href="https://data.wprdc.org/dataset/1a5135de-cabe-4e23-b5e4-b2b8dd733817/resource/14e5de97-0a5f-4521-84f6-ba74413db598/download/alcogisallegheny-county-zip-code-boundaries.geojson">Allegheny County ZIP Boundary</a>
+				</figcaption>
+			</figure>
+
+			The highest rates appear concentrated in central and river-adjacent ZIPs, particularly around Pittsburgh’s urban core, especially areas like 15210.
+			However the zip code area that is close to CMU campus has way lower rate than its neighbors. (15213)
+
+
+		</section>
+
+		<section>
+			<h2>Summary</h2>
+
+			<p>
+			Through this exploratory analysis of Allegheny County's fatal overdose dataset, I found several important insights. First, the age distribution revealed that adults between ages 25 and 60 are the most affected group, with peaks around the late 30s to mid-50s, making it different from a classic bell curve. With a closer look by year, I uncovered that peaks intensified around 2017, a year that stood out as a turning point across most of my following data analysis.
+			When examining trends over time, total incidents surged dramatically leading up to 2017, followed by a sudden decline and some sorts of recovery in the following years. This pattern might be caused by policy changes, as these extreme changes occurred during / after U.S. president elections. Further analysis of specific drugs among those cases confirmed my assumption of fentanyl’s dominance, which started in 2014 and remained high in terms of participation in all of those cases.
+			If we break down fentanyl’s usage by age groups, we are able to see that both younger (12-30) and older (30+) individuals were similarly affected, with younger groups having slightly higher use percentages. Finally, mapping overdose incidents by ZIP code population highlighted ZIP code areas closer to the city of Pittsburgh tend to have more reports of overdose cases, yet ones closer to the university areas reported relatively lower per-capital rates.
+			Taken together, these findings suggest that the overdose crisis in Allegheny County is not evenly distributed across ages, time, drugs, or geography. Instead, it is defined by fentanyl’s overwhelming rise, a dramatic temporal spike in 2017, and localized regional disparities.
+			</p>
+			
+		</section>
+	</main>
+</body>
+</html>
